@@ -1,0 +1,39 @@
+﻿<Window x:Class="CardLists.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CardLists"
+        mc:Ignorable="d"
+        Title="Card Lists" Height="350" Width="525" MinWidth="525" MinHeight="350" Background="White">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="310*"/>
+            <ColumnDefinition Width="86*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Vault:" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Margin="0,14,0,13" Width="39"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="vaultsComboBox" SelectedValue="{Binding selectedVault}" ItemsSource="{Binding vaultNames}" IsEnabled="{Binding notBusy}" Margin="31,16" Grid.ColumnSpan="2" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="File:" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Margin="0,13,0,14" Width="31"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding selectedFile}" IsEnabled="{Binding notBusy}" Margin="31,15" Grid.ColumnSpan="1" />
+        <Button Content="Browse" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left"   VerticalAlignment="Center" Width="55" Command="{Binding BrowseFileCommand}" IsEnabled="{Binding notBusy}"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Variable:" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Margin="0,14" Width="55"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="variablesComboBox" SelectedValue="{Binding selectedVariable}" ItemsSource="{Binding variableNames}" IsEnabled="{Binding notBusy}" Margin="31,16" Grid.ColumnSpan="2" />
+        <!--<TextBox Grid.Row="2" Grid.Column="1" Text="{Binding selectedVariable}" IsEnabled="{Binding notBusy}" Margin="31,16" Grid.ColumnSpan="2" />-->
+
+        <Button Content="Get Card List" Height="23" Grid.Row="3" VerticalAlignment="Center" Command="{Binding GetCardListCommand}" IsEnabled="{Binding notBusy}" Grid.Column="1" Margin="90,15,103,15" />
+
+        <ListBox ItemsSource="{Binding cardListEntries}" HorizontalAlignment="Center" Height="97" Grid.Row="4" VerticalAlignment="Top" Width="500" Grid.ColumnSpan="3" Margin="8,0,9,0" />
+        
+    </Grid>
+</Window>
