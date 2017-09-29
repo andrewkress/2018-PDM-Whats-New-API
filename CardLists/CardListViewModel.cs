@@ -34,7 +34,7 @@ namespace CardLists {
         public Command GetCardListCommand { get; }
         public Command BrowseFileCommand { get; }
 
-        private IEdmVault8 vault;
+        private IEdmVault5 vault;
 
         public String selectedVault {
             get { return _selectedVault; }
@@ -76,10 +76,11 @@ namespace CardLists {
         }
 
         private void populateVariableNames() {
+            vault = new EdmVault5();
             vault.LoginAuto(selectedVault, 0);
             if (vault.IsLoggedIn) {
                 variableNames.Clear();
-                IEdmVariableMgr5 varMgr = (IEdmVariableMgr5)vault.CreateUtility(EdmUtility.EdmUtil_VariableMgr);
+                IEdmVariableMgr5 varMgr = (IEdmVariableMgr5)((IEdmVault7)vault).CreateUtility(EdmUtility.EdmUtil_VariableMgr);
                 IEdmPos5 varPos = varMgr.GetFirstVariablePosition();
                 while (!varPos.IsNull) {
                     IEdmVariable5 varToAdd = varMgr.GetNextVariable(varPos);
@@ -89,8 +90,8 @@ namespace CardLists {
         }
 
         private void populateVaultNames() {
-            vault = (IEdmVault8)(new EdmVault5());
-            vault.GetVaultViews(out EdmViewInfo[] views, false);
+            vault = new EdmVault5();
+            ((IEdmVault8)vault).GetVaultViews(out EdmViewInfo[] views, false);
             foreach (EdmViewInfo view in views) {
                 vaultNames.Add(view.mbsVaultName);
             }
@@ -100,8 +101,8 @@ namespace CardLists {
         private void GetCardList() {
             notBusy = false;
             try {
-                if(!vault.IsLoggedIn)
-                    vault.LoginAuto(selectedVault, 0);
+                vault = new EdmVault5();
+                vault.LoginAuto(selectedVault, 0);
                 if (vault.IsLoggedIn) {
                     IEdmFile5 file = vault.GetFileFromPath(selectedFile, out IEdmFolder5 folder);
                     IEdmCard5 card = folder.GetCard(Path.GetExtension(selectedFile).Substring(1));
