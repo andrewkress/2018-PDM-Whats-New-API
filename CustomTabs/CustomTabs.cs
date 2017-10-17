@@ -59,10 +59,8 @@ namespace CustomTabs {
 
             // create control
             WinForm wf = new WinForm();
-            //CustomTabControl ctc = new CustomTabControl();
 
             // get control id
-            //long windowHandle = new WindowInteropHelper(ctc).EnsureHandle().ToInt64();
             long windowHandle = wf.Handle.ToInt64();
 
             // call to add the tab
